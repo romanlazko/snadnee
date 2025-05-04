@@ -1,7 +1,7 @@
 # 🍽️ Systém rezervace stolů pro restauraci
 
 Projekt představuje systém rezervace stolů v restauraci, postavený na Laravelu s použitím Filamentu.  
-Uživatelé mohou vytvářet rezervace, zobrazovat své rezervace a administrátor může spravovat uživatele, stoly a rezervace.
+Uživatelé mohou vytvářet rezervace, zobrazovat své rezervace a administrátor může spravovat uživatele, stoly a rezervace. [Demo](https://skyblue-dogfish-961725.hostingersite.com)
 
 ---
 
