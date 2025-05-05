@@ -15,6 +15,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Filament\Tables\Enums\FiltersLayout;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
+use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ReservationResource extends Resource
 {
@@ -104,9 +107,9 @@ class ReservationResource extends Resource
                             ->hiddenOn(CreateReservation::class)
                             ->createOptionForm(fn (Form $form) => UserResource::form($form)),
 
-                        Forms\Components\TextInput::make('phone')
+                        PhoneInput::make('phone')
                             ->required()
-                            ->tel(),
+                            ->validateFor('AUTO', null, false),
 
                         Forms\Components\Textarea::make('comment')
                             ->hiddenOn(Pages\CreateReservation::class)
@@ -120,14 +123,20 @@ class ReservationResource extends Resource
             ->defaultGroup('table.name')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
+                    ->description(fn (Reservation $record) => $record->user->email)
                     ->sortable(),
+                PhoneColumn::make('phone')
+                    ->displayFormat(PhoneInputNumberType::INTERNATIONAL),
                 Tables\Columns\TextColumn::make('table.name')
                     ->sortable()
                     ->hiddenOn(Pages\ListReservations::class),
                 Tables\Columns\TextColumn::make('date_time')
                     ->state(fn (Reservation $record) => $record->date->format('Y-m-d') . ' ' . $record->time)
-                    ->dateTime(),
+                    ->dateTime()
+                    ->badge(),
                 Tables\Columns\TextColumn::make('number_of_people'),
+                Tables\Columns\TextColumn::make('comment')
+                    ->wrap(),
             ])
             ->filters([
                 Tables\Filters\Filter::make('date')
