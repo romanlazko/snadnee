@@ -25,7 +25,8 @@ class ReservationResource extends Resource
     {
         return AdminReservationResource::table($table)
             ->modifyQueryUsing(function (Builder $query) {
-                $query->where('user_id', auth()->user()->id);
+                $query->where('user_id', auth()->user()->id)
+                    ->where('date', '>=', now()->format('Y-m-d'));
             })
             ->defaultGroup(null)
             ->filters([]);
