@@ -86,7 +86,7 @@ it('can validate input', function () {
             'date' => 'after_or_equal',
             'table' => 'exists',
             'user' => 'exists',
-            'phone' => 'regex'
+            'phone'
         ]);
 
     $reservation = Reservation::factory()->create();

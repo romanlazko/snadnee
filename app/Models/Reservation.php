@@ -32,7 +32,7 @@ class Reservation extends Model
             $reservation->user->notify(new ReservationSuccessfulyCreatedNotification($reservation));
         });
         
-        static::deleted(function (Reservation $reservation) {
+        static::deleting(function (Reservation $reservation) {
             $reservation->user->notify(new ReservationSuccessfulyCanceledNotification($reservation));
         });
     }
