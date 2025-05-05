@@ -32,12 +32,13 @@ class ReservationFactory extends Factory
     public function configure()
     {
         return $this->afterMaking(function (Reservation $reservation) {
-            $table = $reservation->table ?? Table::find($reservation->table_id);
-            $reservation->number_of_people = fake()->numberBetween(1, $table->seat_count);
-        })->afterCreating(function (Reservation $reservation) {
-            $table = $reservation->table ?? Table::find($reservation->table_id);
-            $reservation->number_of_people = fake()->numberBetween(1, $table->seat_count);
-            $reservation->save();
-        });
+                $table = $reservation->table ?? Table::find($reservation->table_id);
+                $reservation->number_of_people = fake()->numberBetween(1, $table->seat_count);
+            })
+            ->afterCreating(function (Reservation $reservation) {
+                $table = $reservation->table ?? Table::find($reservation->table_id);
+                $reservation->number_of_people = fake()->numberBetween(1, $table->seat_count);
+                $reservation->save();
+            });
     }
 }
